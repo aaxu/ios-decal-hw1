@@ -23,10 +23,11 @@ class Words {
 
 
 //: [EXPLAIN YOUR ANSWER HERE]
+    //:The values passed in to the init function and those set to the instance variables are of not the same type. Although the code is valid, the instance variables are implicitly unwrapped optionals whereas the parameters of the init function are simply optionals. Thus we can access self.wordA without unwrapping it everytime whereas we have to unwrap the parameter wordA if we want the value contained within the optional.
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(_ words: [String]) -> Bool {
+    class func arePalindromes(_ words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reversed())}
         let numElements = words.count
         
@@ -35,6 +36,7 @@ class Words {
                 return false
             }
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
@@ -42,13 +44,14 @@ class Words {
 
 
 //: [EXPLAIN YOUR ANSWER HERE]
+    //Since the function is accessed in the code at the bottom through Word.arePalindromes, the function must be a class function, therefore I needed to add the "class" modifier to the function signature. There also needs to be a return statement outside of the for loop.
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    func isAnagram() -> Bool {
+        var countLetters = [Character : Int]() //Line X
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,13 +78,13 @@ class Words {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
         }
         
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -90,7 +93,7 @@ class Words {
 
 
 //: [EXPLAIN YOUR ANSWER HERE]
-    
+    //: countLetters was only declared in line X and never initialized so we cannot access it in line Y. Thus we declare it as an empty dicionary. Also, since the function is accessed through an instance of the Words class, this function must be an instance method and we must change nil to true since the function returns a Bool value.
     
 }
 
